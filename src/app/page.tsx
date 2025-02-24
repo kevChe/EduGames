@@ -1,101 +1,152 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const rows = 8;
+  const cols = 9;
+  const initialBoard = Array(rows)
+    .fill(null)
+    .map(() => Array(cols).fill(null));
+  const [board, setBoard] = useState(initialBoard);
+  const [currentPlayer, setCurrentPlayer] = useState(1); // Player 1 starts
+  const [winningDiscs, setWinningDiscs] = useState<string[]>([]); // Change to array
+  const [winner, setWinner] = useState<number | null>(null);
+  const [resetButton, setResetButton] = useState(false)
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const players = [
+    { id: 1, color: "red" },
+    { id: 2, color: "blue" },
+    { id: 3, color: "yellow" },
+    { id: 4, color: "green" },
+  ];
+
+  const dropDisc = (col: number) => {
+    const newBoard = board.map((row) => [...row]);
+    for (let row = rows - 1; row >= 0; row--) {
+      if (!newBoard[row][col]) {
+        newBoard[row][col] = currentPlayer;
+        if (row - 1 >= 0 && newBoard[row - 1][col] && newBoard[row - 1][col] !== currentPlayer) {
+          newBoard[row - 1][col] = currentPlayer;
+        }
+        if(!winner)
+        {
+          setBoard(newBoard);
+          setCurrentPlayer((currentPlayer % 4) + 1);
+        }
+        checkWinner(newBoard, row, col);
+        break;
+      }
+    }
+  };
+
+  const checkWinner = (board: (number | null)[][], row: number, col: number) => {
+    const directions = [
+      [0, 1], // right
+      [1, 0], // down
+      [1, 1], // down-right
+      [1, -1], // down-left
+    ];
+    const player = board[row][col];
+    let foundWin = false;
+    const winningPositions: string[] = []; // Change to array
+
+    for (let [dr, dc] of directions) {
+      let count = 1;
+      const currentWinning = [ `${row},${col}` ]; // Start with array
+
+      for (let i = 1; i < 4; i++) {
+        const r = row + dr * i;
+        const c = col + dc * i;
+        if (
+          r >= 0 &&
+          r < rows &&
+          c >= 0 &&
+          c < cols &&
+          board[r][c] === player
+        ) {
+          count++;
+          currentWinning.push(`${r},${c}`);
+        } else break;
+      }
+      for (let i = 1; i < 4; i++) {
+        const r = row - dr * i;
+        const c = col - dc * i;
+        if (
+          r >= 0 &&
+          r < rows &&
+          c >= 0 &&
+          c < cols &&
+          board[r][c] === player
+        ) {
+          count++;
+          currentWinning.push(`${r},${c}`);
+        } else break;
+      }
+      if (count >= 4) {
+        foundWin = true;
+        winningPositions.push(...currentWinning);
+        break;
+      }
+    }
+
+    if (foundWin) {
+      setWinningDiscs(winningPositions); // Set as array
+      setWinner(player);
+      setResetButton(true)
+    }
+  };
+
+  const resetGame = () => {
+    setBoard([...initialBoard.map(row => [...row])]); // Deep copy
+    setCurrentPlayer(1);
+    setWinningDiscs([]); // Reset to empty array
+    setWinner(null);
+  };
+
+  useEffect(() => {
+    if (winner !== null) {
+      setTimeout(() => {
+        alert(`Player ${winner} wins!`);
+      }, 100);
+    }
+  }, [winner]);
+
+  return (
+    <div className="flex flex-col items-center min-h-screen py-8 bg-gray-100">
+      <h1 className="text-3xl font-bold mb-4">Twisted Connect 4</h1>
+      <p className="mb-4">Current Player: {players[currentPlayer - 1].color}</p>
+      <div className="grid gap-1 bg-blue-500 p-2 rounded">
+        {board.map((row, rowIndex) => (
+          <div key={rowIndex} className="flex gap-1">
+            {row.map((cell, colIndex) => {
+              const isWinningDisc = winningDiscs.includes(`${rowIndex},${colIndex}`);
+              return (
+                <div
+                  key={colIndex}
+                  onClick={() => dropDisc(colIndex)}
+                  className={`w-12 h-12 rounded-full cursor-pointer border ${
+                    isWinningDisc ? "border-4 border-black" : "border-gray-300"
+                  }`}
+                  style={{
+                    backgroundColor: cell
+                      ? players[cell - 1].color
+                      : "white",
+                    }}
+                />
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      {resetButton ? 
+      <button
+        onClick={resetGame}
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Reset Game
+      </button> : <div/>
+      }
     </div>
   );
 }
