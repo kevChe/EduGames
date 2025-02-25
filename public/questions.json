@@ -1,0 +1,192 @@
+[
+    {
+        "question": "What are the 5 stages of Program Development Life Cycle",
+        "answer": "1. Analysis 2. Design 3. Coding 4. Testing 5. Maintenance"
+    },
+    {
+        "question": "What is analysis",
+        "answer": "Understanding the problem or task that the program is intended to solve\nA requirement specification\nDefinition of system objectives\nList of problems with existing system\nSurvey\nFeasibility study\nInterview notes"
+    },
+    {
+        "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
+        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+    },
+    {
+        "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
+        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+    },
+    {
+        "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
+        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+    },
+    {
+        "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
+        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+    },
+    {
+        "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
+        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+    },
+    {
+        "question": "Explain what is done in the testing stage",
+        "answer": "The testing stage involves verifying and validating the program to ensure it functions correctly and meets the specified requirements"
+    },
+    {
+        "question": "Give an example of normal test data",
+        "answer": "50  for the range 1 - 100"
+    },
+    {
+        "question": "Give an example of abnormal test data",
+        "answer": "150  for the range 1 - 100"
+    },
+    {
+        "question": "Give an example of extreme test data",
+        "answer": "1, 100  for the range 1 - 100"
+    },
+    {
+        "question": "Give an example of boundary test data",
+        "answer": "0, 1, 100, 101  for the range 1 - 100"
+    },
+    {
+        "question": "Explain range check",
+        "answer": "ensures that data falls within specified limits, for example, a person's age must be between 0 and 120."
+    },
+    {
+        "question": "Explain format check",
+        "answer": "makes sure that data is entered in the correct format, for example, a date must be in the format DD/MM/YYYY."
+    },
+    {
+        "question": "Explain type check",
+        "answer": "makes sure that data entered is of the correct data type, for example, a price must be numeric."
+    },
+    {
+        "question": "Explain length check",
+        "answer": "ensures that data contains the correct number of characters, for example, a telephone number must be 11 digits."
+    },
+    {
+        "question": "Explain presence check",
+        "answer": "ensures that required data is entered and a field is not left blank, for example, a passport number must be entered."
+    },
+    {
+        "question": "Explain existence check",
+        "answer": "checks whether anything exists in the source data."
+    },
+    {
+        "question": "Explain limit check",
+        "answer": "Ensures that data does not exceed a predetermined value, for example the speed of a car cannot exceed 80."
+    },
+    {
+        "question": "Explain check digit",
+        "answer": "is an extra digit added to a number to confirm its validity, for example, the last digit of an ISBN is a check digit calculated using a modulo-11 algorithm."
+    },
+    {
+        "question": "Explain visual check",
+        "answer": "the user looks through the data that has been entered and confirms that no changes have been made."
+    },
+    {
+        "question": "Explain double entry check",
+        "answer": "data is entered twice, the two entries are compared and if they do not match, a re-entry is requested. "
+    },
+    {
+        "question": "Explain parity check",
+        "answer": "The parity checking protocol determines whether bits in a transmission have been corrupted\nEvery byte transmitted has one of its bits allocated as a parity bit\nThe sender and receiver must agree before transmission whether they are using odd or even parity"
+    },
+    {
+        "question": "Explain checksum",
+        "answer": "Checksums determine if data has been corrupted but do not reveal where\nData is sent in blocks and an additional checksum value is added at the end of the block\nChecksums are custom user-created algorithms that perform mathematical calculations on data\n"
+    },
+    {
+        "question": "Explain white box testing",
+        "answer": "Testing how each procedure works by testing the structure and logic of every path through a program module\nThe tester knows the code and tests different execution paths\nTo make sure the code is correct and optimized"
+    },
+    {
+        "question": "Explain black box testing",
+        "answer": "Testing how each procedure works by testing the structure and logic of every path through a program module\nThe tester knows the code and tests different execution paths\nTo make sure the code is correct and optimized"
+    },
+    {
+        "question": "Explain dry run",
+        "answer": "Before running the code, the developer manually goes through the logic on paper.\nTrace table"
+    },
+    {
+        "question": "Explain walkthrough",
+        "answer": "Development team reviews the code or design together\nFormalized way of using trace table with the team\nWith pre-defined test case"
+    },
+    {
+        "question": "Explain integration",
+        "answer": "Check if different modules work together correctly"
+    },
+    {
+        "question": "Explain stub",
+        "answer": "A placeholder function to simulate an unfinished module\nContains pre-defined input and output"
+    },
+    {
+        "question": "Explain alpha",
+        "answer": "Internal employees testing the system before any external users\n"
+    },
+    {
+        "question": "Explain beta",
+        "answer": "A limited group of real users test the system before full release"
+    },
+    {
+        "question": "Explain acceptance test",
+        "answer": "Evaluates whether the software meets the business requirements\nTesting will be done by clients"
+    },
+    {
+        "question": "Explain corrective maintenance",
+        "answer": "Correct the errors during use that was missed during testing\nSuch as any run-time error"
+    },
+    {
+        "question": "Explain adadptive maintenance",
+        "answer": "Adapting the program so that it is able to perform new tasks"
+    },
+    {
+        "question": "Explain perfective maintenance",
+        "answer": "Improve performance of the program"
+    },
+    {
+        "question": "Explain waterfall model",
+        "answer": "A linear sequential model where each stage is completed before the next begins, suitable for smaller projects with well-defined requirements"
+    },
+    {
+        "question": "What are the disadvantages of waterfall model",
+        "answer": "No working software until late in the life cycle\nDoes not allow creation of early versions/prototypes which can be updated later\nDifficult to cope with changes to the requirements\nSlower to be updated\nNeeds high involvement/feedback of the stake holders /customer /client"
+    },
+    {
+        "question": "Explain iterative model",
+        "answer": "The iterative model is a software development life cycle (SDLC) that involves developing a system in increments, with each increment building on the previous one.\n\nThe process starts with an initial planning phase to define the overall scope of the system and identify the key requirements.\n\nThe development team then develops a simple subset of the requirements, which is tested and refined.\n\nThis process is repeated, with each iteration adding more features and functionality until the full system is complete."
+    },
+    {
+        "question": "Explain Rapid application development",
+        "answer": "A model emphasizing rapid prototyping and user feedback, suitable for projects with tight deadlines and changing requirements.\n\nRAD prioritizes speed and flexibility. It aims to deliver functional software quickly by employing techniques such as prototyping, iterative development, and the use of pre-existing code modules"
+    },
+    {
+        "question": "Advantages of RAD",
+        "answer": ":Quicker development\nMultiple areas can be worked on at same time / parallel development\nPrototype produced at early stage in process\nEasier to change requirements\nEarly review possible / closer cooperation between client and developers"
+    },
+    {
+        "question": "Disadvantages of RAD",
+        "answer": "Difficult to estimate cost / time to complete project\nDocumentation often omitted\nLack of client availability throughout life cycle / Too easy for client to keep changing their mind"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "1.png",
+        "answer_image": "1.1.png"
+    },
+    {
+        "question": "",
+        "answer": ""
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "2.png",
+        "answer_image": "2.1.png"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "3.png",
+        "answer_image": "3.1.png"
+    }
+]
