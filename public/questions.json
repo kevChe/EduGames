@@ -175,10 +175,6 @@
     },
     {
         "question": "",
-        "answer": ""
-    },
-    {
-        "question": "",
         "answer": "",
         "image": "2.png",
         "answer_image": "2.1.png"
@@ -188,5 +184,29 @@
         "answer": "",
         "image": "3.png",
         "answer_image": "3.1.png"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "4.png",
+        "answer_image": "4.1.png"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "5.png",
+        "answer_image": "5.1.png"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "6.png",
+        "answer_image": "6.1.png"
+    },
+    {
+        "question": "",
+        "answer": "",
+        "image": "7.png",
+        "answer_image": "7.1.png"
     }
 ]

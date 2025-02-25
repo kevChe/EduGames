@@ -17,17 +17,16 @@ export default function Home() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState<number | null>(null);
   const [questions, setQuestions] = useState<any[]>([]);
-  const [availableQuestions, setAvailableQuestions] = useState<any[]>([]); // Track remaining questions
+  const [availableQuestions, setAvailableQuestions] = useState<any[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number | null>(null);
+  const [playerNames, setPlayerNames] = useState([
+    { id: 1, color: "red", name: "Red" },
+    { id: 2, color: "blue", name: "Blue" },
+    { id: 3, color: "yellow", name: "Yellow" },
+    { id: 4, color: "green", name: "Green" },
+  ]);
+  const [editingPlayer, setEditingPlayer] = useState<number | null>(null);
 
-  const players = [
-    { id: 1, color: "red" },
-    { id: 2, color: "blue" },
-    { id: 3, color: "yellow" },
-    { id: 4, color: "green" },
-  ];
-
-  // Load questions and initialize available questions
   useEffect(() => {
     fetch('/questions.json')
       .then((response) => {
@@ -36,7 +35,7 @@ export default function Home() {
       })
       .then((data) => {
         setQuestions(data);
-        setAvailableQuestions([...data]); // Copy all questions to available pool
+        setAvailableQuestions([...data]);
       })
       .catch((error) => {
         console.error(error);
@@ -51,9 +50,8 @@ export default function Home() {
     setShowQuiz(true);
     setIsFlipped(false);
     
-    // Select random question from available pool
     if (availableQuestions.length === 0) {
-      setAvailableQuestions([...questions]); // Reset if all questions used
+      setAvailableQuestions([...questions]);
     }
     const randomIndex = Math.floor(Math.random() * availableQuestions.length);
     setCurrentQuestionIndex(randomIndex);
@@ -79,10 +77,7 @@ export default function Home() {
 
   const checkWinner = (board: (number | null)[][], row: number, col: number) => {
     const directions = [
-      [0, 1], // right
-      [1, 0], // down
-      [1, 1], // down-right
-      [1, -1], // down-left
+      [0, 1], [1, 0], [1, 1], [1, -1],
     ];
     const player = board[row][col];
     let foundWin = false;
@@ -95,13 +90,7 @@ export default function Home() {
       for (let i = 1; i < 4; i++) {
         const r = row + dr * i;
         const c = col + dc * i;
-        if (
-          r >= 0 &&
-          r < rows &&
-          c >= 0 &&
-          c < cols &&
-          board[r][c] === player
-        ) {
+        if (r >= 0 && r < rows && c >= 0 && c < cols && board[r][c] === player) {
           count++;
           currentWinning.push(`${r},${c}`);
         } else break;
@@ -109,13 +98,7 @@ export default function Home() {
       for (let i = 1; i < 4; i++) {
         const r = row - dr * i;
         const c = col - dc * i;
-        if (
-          r >= 0 &&
-          r < rows &&
-          c >= 0 &&
-          c < cols &&
-          board[r][c] === player
-        ) {
+        if (r >= 0 && r < rows && c >= 0 && c < cols && board[r][c] === player) {
           count++;
           currentWinning.push(`${r},${c}`);
         } else break;
@@ -139,14 +122,14 @@ export default function Home() {
     setCurrentPlayer(1);
     setWinningDiscs([]);
     setWinner(null);
-    setAvailableQuestions([...questions]); // Reset available questions
+    setAvailableQuestions([...questions]);
     setCurrentQuestionIndex(null);
   };
 
   useEffect(() => {
     if (winner !== null) {
       setTimeout(() => {
-        alert(`Player ${winner} wins!`);
+        alert(`Player ${playerNames[winner - 1].name} wins!`);
       }, 100);
     }
   }, [winner]);
@@ -155,11 +138,9 @@ export default function Home() {
     if (correct && selectedColumn !== null) {
       dropDisc(selectedColumn);
     } else {
-      // Wrong answer advances to next player
       setCurrentPlayer((currentPlayer % 4) + 1);
     }
     
-    // Remove used question from available pool
     if (currentQuestionIndex !== null) {
       setAvailableQuestions(prev => {
         const newAvailable = [...prev];
@@ -171,6 +152,20 @@ export default function Home() {
     setShowQuiz(false);
     setSelectedColumn(null);
     setCurrentQuestionIndex(null);
+  };
+
+  const handleNameChange = (id: number, newName: string) => {
+    setPlayerNames(prev => 
+      prev.map(player => 
+        player.id === id ? { ...player, name: newName } : player
+      )
+    );
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>, id: number) => {
+    if (e.key === 'Enter') {
+      setEditingPlayer(null);
+    }
   };
 
   const QuizCard = () => {
@@ -193,7 +188,6 @@ export default function Home() {
     useEffect(() => {
       const handleFullscreenChange = () => {
         if (!document.fullscreenElement) {
-          // Optional: Reset flip state when exiting fullscreen
           // setIsFlipped(false);
         }
       };
@@ -204,19 +198,19 @@ export default function Home() {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div 
-          className="bg-white p-6 rounded-lg shadow-xl w-3/4 h-3/4 cursor-pointer transform transition-transform duration-500" // Changed to 3/4 size
+          className="bg-white p-6 rounded-lg shadow-xl w-3/4 h-3/4 cursor-pointer transform transition-transform duration-500"
           style={{ transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
           onClick={() => setIsFlipped(!isFlipped)}
         >
-          <div className="relative w-full h-full flex flex-col"> {/* Adjusted for full height */}
+          <div className="relative w-full h-full flex flex-col">
             {!isFlipped ? (
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <p className="text-2xl mb-6">{q.question}</p> {/* Increased text size */}
+                <p className="text-2xl mb-6 text-black">{q.question}</p>
                 {q.image && (
                   <img 
                     src={`/image/${q.image}`} 
                     alt="Question" 
-                    className="max-h-60 object-contain cursor-pointer hover:opacity-80 transition-opacity" // Increased max height
+                    className="max-h-60 object-contain cursor-pointer hover:opacity-80 transition-opacity"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleImageClick(e);
@@ -224,17 +218,17 @@ export default function Home() {
                     onError={(e) => e.currentTarget.style.display = 'none'}
                   />
                 )}
-                <div className="mt-6 flex justify-between w-full px-6"> {/* Increased spacing */}
+                <div className="mt-6 flex justify-between w-full px-6">
                   <button
                     onClick={(e) => { e.stopPropagation(); handleQuizResponse(true); }}
-                    className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 text-lg" // Larger button
+                    className="px-6 py-3 bg-green-500 text-black rounded hover:bg-green-600 text-lg"
                   >
                     Correct
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleQuizResponse(false); }}
-                    className="px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 text-lg" // Larger button
-                  >
+                    className="px-6 py-3 bg-red-500 text-black rounded hover:bg-red-600 text-lg"
+                    >
                     Wrong
                   </button>
                 </div>
@@ -244,12 +238,12 @@ export default function Home() {
                 className="absolute inset-0 flex flex-col items-center justify-center"
                 style={{ transform: 'rotateY(180deg)' }}
               >
-                <p className="text-2xl mb-6">{q.answer}</p> {/* Increased text size */}
+                <p className="text-2xl mb-6 text-black">{q.answer}</p>
                 {q.answer_image && (
                   <img 
                     src={`/image/${q.answer_image}`} 
                     alt="Answer" 
-                    className="max-h-60 object-contain cursor-pointer hover:opacity-80 transition-opacity" // Increased max height
+                    className="max-h-60 object-contain cursor-pointer hover:opacity-80 transition-opacity"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleImageClick(e);
@@ -257,16 +251,16 @@ export default function Home() {
                     onError={(e) => e.currentTarget.style.display = 'none'}
                   />
                 )}
-                <div className="mt-6 flex justify-between w-full px-6"> {/* Increased spacing */}
+                <div className="mt-6 flex justify-between w-full px-6">
                   <button
                     onClick={(e) => { e.stopPropagation(); handleQuizResponse(true); }}
-                    className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 text-lg" // Larger button
+                    className="px-6 py-3 bg-green-500 text-black rounded hover:bg-green-600 text-lg"
                   >
                     Correct
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleQuizResponse(false); }}
-                    className="px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600 text-lg" // Larger button
+                    className="px-6 py-3 bg-red-500 text-black rounded hover:bg-red-600 text-lg"
                   >
                     Wrong
                   </button>
@@ -281,8 +275,14 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center min-h-screen py-8 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">Twisted Connect 4</h1>
-      <p className="mb-4">Current Player: {players[currentPlayer - 1].color}</p>
+      <h1 className="text-3xl font-bold mb-4 text-black">Twisted Connect 4</h1>
+      <div className="mb-4 flex items-center">
+        <span className="text-black mr-2">Current Player:</span>
+        <div 
+          className="w-6 h-6 rounded-full"
+          style={{ backgroundColor: playerNames[currentPlayer - 1].color }}
+        ></div>
+      </div>
       <div className="grid gap-1 bg-blue-500 p-2 rounded shadow-lg">
         {board.map((row, rowIndex) => (
           <div key={rowIndex} className="flex gap-1">
@@ -297,7 +297,7 @@ export default function Home() {
                   } hover:scale-105 transition-transform`}
                   style={{
                     backgroundColor: cell
-                      ? players[cell - 1].color
+                      ? playerNames[cell - 1].color
                       : "white",
                   }}
                 />
@@ -309,20 +309,39 @@ export default function Home() {
       {resetButton ? 
         <button
           onClick={resetGame}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-105 transition-transform"
+          className="mt-4 px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-600 hover:scale-105 transition-transform"
         >
           Reset Game
         </button> : <div/>
       }
       {showQuiz && <QuizCard />}
-      <div className="flex-1">
-        <div className="flex flex-1 flex-row justify-between ">
-          <h1 className="flex-1 m-5">Red</h1>
-          <h1 className="flex-1 m-5">Blue</h1>
-        </div>
-        <div className="flex flex-1 flex-row justify-between ">
-          <h1 className="flex-1 m-5">Yellow</h1>
-          <h1 className="flex-1 m-5">Green</h1>
+      <div className="flex-1 w-3/4">
+        <div className="flex flex-col gap-4">
+          {playerNames.map(player => (
+            <div key={player.id} className="flex items-center m-5">
+              <div 
+                className="w-6 h-6 rounded-full mr-2 flex-shrink-0"
+                style={{ backgroundColor: player.color }}
+              ></div>
+              {editingPlayer === player.id ? (
+                <input
+                  type="text"
+                  value={player.name}
+                  onChange={(e) => handleNameChange(player.id, e.target.value)}
+                  onKeyPress={(e) => handleKeyPress(e, player.id)}
+                  className="text-black border rounded px-2 py-1"
+                  autoFocus
+                />
+              ) : (
+                <span 
+                  className="text-black cursor-pointer hover:underline"
+                  onClick={() => setEditingPlayer(player.id)}
+                >
+                  {player.name}
+                </span>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
