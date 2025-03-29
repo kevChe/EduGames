@@ -1,0 +1,114 @@
+{
+  "animals": [
+    {
+      "word": "elephant",
+      "definition": "A large gray mammal with a long trunk and tusks"
+    },
+    {
+      "word": "giraffe",
+      "definition": "A tall African animal with a long neck and spotted coat"
+    },
+    {
+      "word": "penguin",
+      "definition": "A flightless bird that lives in the Southern Hemisphere"
+    }
+  ],
+  "technology": [
+    {
+      "word": "computer",
+      "definition": "An electronic device for storing and processing data"
+    },
+    {
+      "word": "smartphone",
+      "definition": "A mobile phone with advanced computing capabilities"
+    },
+    {
+      "word": "camera",
+      "definition": "A device for capturing photographs and videos"
+    }
+  ],
+  "sports": [
+    {
+      "word": "basketball",
+      "definition": "A sport played with a round ball and hoop"
+    },
+    {
+      "word": "swimming",
+      "definition": "Moving through water using arms and legs"
+    },
+    {
+      "word": "tennis",
+      "definition": "A sport played with rackets and a small ball"
+    }
+  ],
+  "food": [
+    {
+      "word": "pizza",
+      "definition": "A flatbread topped with cheese and various ingredients"
+    },
+    {
+      "word": "sushi",
+      "definition": "A Japanese dish of rice and fish wrapped in seaweed"
+    },
+    {
+      "word": "ice cream",
+      "definition": "A frozen dessert made from dairy products"
+    }
+  ],
+  "transportation": [
+    {
+      "word": "airplane",
+      "definition": "A powered flying vehicle with fixed wings"
+    },
+    {
+      "word": "bicycle",
+      "definition": "A two-wheeled vehicle powered by pedals"
+    },
+    {
+      "word": "train",
+      "definition": "A series of connected vehicles running on tracks"
+    }
+  ],
+  "music": [
+    {
+      "word": "guitar",
+      "definition": "A stringed musical instrument with six strings"
+    },
+    {
+      "word": "piano",
+      "definition": "A keyboard instrument with black and white keys"
+    },
+    {
+      "word": "drums",
+      "definition": "Percussion instruments played by striking"
+    }
+  ],
+  "professions": [
+    {
+      "word": "doctor",
+      "definition": "A medical professional who treats patients"
+    },
+    {
+      "word": "teacher",
+      "definition": "Someone who educates students"
+    },
+    {
+      "word": "chef",
+      "definition": "A professional cook who prepares food"
+    }
+  ],
+  "objects": [
+    {
+      "word": "umbrella",
+      "definition": "A device used to protect from rain or sun"
+    },
+    {
+      "word": "book",
+      "definition": "A collection of printed pages bound together"
+    },
+    {
+      "word": "clock",
+      "definition": "A device for measuring and displaying time"
+    }
+  ]
+} 

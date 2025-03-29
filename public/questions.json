@@ -9,23 +9,23 @@
     },
     {
         "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
-        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+        "answer": ""
     },
     {
         "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
-        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+        "answer": ""
     },
     {
         "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
-        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+        "answer": ""
     },
     {
         "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
-        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+        "answer": ""
     },
     {
         "question": "Give an example of a type of planning done in the design stage that was not mentioned before",
-        "answer": "nFlowchart\nTrace table\nStructure charts\nState transition diagrams\nPseudocode"
+        "answer": ""
     },
     {
         "question": "Explain what is done in the testing stage",
@@ -208,5 +208,53 @@
         "answer": "",
         "image": "7.png",
         "answer_image": "7.1.png"
+    },
+    {
+        "question": "In a structure chart, what does this symbol represent",
+        "answer": "Repetition",
+        "image": "8.png",
+        "answer_image": ""
+    },
+    {
+        "question": "In a structure chart, what does this symbol represent",
+        "answer": "Selection",
+        "image": "9.png",
+        "answer_image": ""
+    },
+    {
+        "question": "In a structure chart, what does this arrow represent",
+        "answer": "Data flow, sending or returning data that is not a boolean value",
+        "image": "10.png",
+        "answer_image": ""
+    },
+    {
+        "question": "In a structure chart, what does this arrow represent",
+        "answer": "Control flow, a boolean value used to indicate where the data passed is used to control the flow of the program",
+        "image": "11.png",
+        "answer_image": ""
+    },
+    {
+        "question": "In a state transition diagram, what does this black circle with an arrow represent",
+        "answer": "Start",
+        "image": "12.png",
+        "answer_image": ""
+    },
+    {
+        "question": "In a state transition diagram, what does this node with two circles represent",
+        "answer": "Terminate",
+        "image": "13.png",
+        "answer_image": ""
+    },
+    {
+        "question": "Explain Syntax Error",
+        "answer": "A construct / statement in the source code that breaks the rules of the language"
+    },
+    {
+        "question": "Explain Logic Error",
+        "answer": "An error in the algorithm that causes the program not to behave as intended"
+    },
+    {
+        "question": "Explain Run-time error",
+        "answer": "A program performs an invalid operation / tries to divde by zero // enters an infinite loop / stops unexpectedly"
     }
 ]
